@@ -89,8 +89,15 @@ class MyBody extends StatelessWidget
                         ),
                       ),
                     ),
-                    IconButton(icon: Icon(Icons.star_border, color: Colors.blue,), onPressed: null, tooltip: 'Star the page',),
-                    Text('num'),  //Add a number and then update it whenever the star icon is pressed. Need to make this whole thing a stateful widget.
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    ),
+                    NewBody(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    ),
+                    /*IconButton(icon: Icon(Icons.star_border, color: Colors.blue,), onPressed: null, tooltip: 'Star the page',),
+                    Text('num'),  //Add a number and then update it whenever the star icon is pressed. Need to make this whole thing a stateful widget.*/
                   ],
                 ),
               ),
@@ -155,3 +162,55 @@ class MyBody extends StatelessWidget
       );
   }
 }
+
+class NewBody extends StatefulWidget //Favourite button made interactive
+{
+  @override
+  _NewBodyState createState() => _NewBodyState();
+}
+
+class _NewBodyState extends State<NewBody>
+{
+  bool _isFavourite =false;
+  int _favourite=25;
+
+  void toggleState()
+  {
+    setState(() {
+      if(_isFavourite==true)
+        {
+          _isFavourite=false;
+          _favourite--;
+        }
+      else
+        {
+          _isFavourite=true;
+          _favourite++;
+        }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            //color: Colors.blue,
+            //padding: EdgeInsets.symmetric(horizontal: 0.0),
+            child: IconButton(
+              icon: _isFavourite ? Icon(Icons.star, color: Colors.red,) : Icon(Icons.star_border, color: Colors.red,),
+              onPressed: toggleState,
+              iconSize: 24.0,
+            ),
+          ),
+          SizedBox(
+            width: 18.0,
+            child: Text(
+                '$_favourite'
+            ),
+          )
+        ],
+      );
